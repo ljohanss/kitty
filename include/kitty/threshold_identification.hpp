@@ -116,6 +116,7 @@ bool is_unate( TT& tt, std::vector<bool>& should_invert )
 	return true;
 }	  
   
+  
 template<typename TT, typename = std::enable_if_t<is_complete_truth_table<TT>::value>>
 bool ilp_solve( std::vector<int64_t>& linear_form, const TT& fstar )
 {
@@ -188,15 +189,8 @@ bool ilp_solve( std::vector<int64_t>& linear_form, const TT& fstar )
 	get_variables( lp, result.data() );
 	delete_lp(lp);
 	
-	/*
-	for (uint32_t i = 0; i < 1+fstar.num_vars(); i++)
-	{
-		linear_form.at(i) = int64_t(result.at(i));
-	}
-	*/
 	linear_form.insert(linear_form.begin(), result.begin(), result.end());
 
-	
 	
 	if ( ilp_status )
 	{
@@ -205,6 +199,7 @@ bool ilp_solve( std::vector<int64_t>& linear_form, const TT& fstar )
 	
 	return true;
 }
+  
   
 /*! \brief Threshold logic function identification
 
